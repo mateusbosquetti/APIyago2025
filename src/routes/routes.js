@@ -2,6 +2,7 @@ const connection = require('../database/connection')
 const express = require('express')
 const router = express.Router()
 const UserController = require('../controllers/UserController')
+const AWSController = require('../Estruturado/Controller/AWSController')
 const ImageControllerNova = require('../Estruturado/Controller/ImageController')
 const UserControllerNova = require('../Estruturado/Controller/UsuarioController')
 
@@ -22,5 +23,7 @@ router.get('/estruturado/usuarios', UserControllerNova.listarUsuario)
 router.get('/estruturado/usuario/:id', UserControllerNova.buscarUsuario)
 router.put('/estruturado/editarUsuario/:id', UserControllerNova.atualizarUsuario)
 router.delete('/estruturado/apagarUsuario/:id', UserControllerNova.removerUsuario);
+
+router.get('/aws/get', AWSController.buscarImagem)
 
 module.exports = router
