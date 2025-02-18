@@ -19,4 +19,4 @@ router.delete('/estruturado/apagarUsuario/:id', UserControllerNova.removerUsuari
 
 router.get('/usuarios', AWSController.buscarImagem)
 
-module.exports = routera
+module.exports = router
