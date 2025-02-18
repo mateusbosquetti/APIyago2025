@@ -17,6 +17,6 @@ router.get('/estruturado/usuario/:id', UserControllerNova.buscarUsuario)
 router.put('/estruturado/editarUsuario/:id', UserControllerNova.atualizarUsuario)
 router.delete('/estruturado/apagarUsuario/:id', UserControllerNova.removerUsuario);
 
-router.get('/usuarios', AWSController.buscarImagem)
+router.get('/aws', AWSController.buscarImagem)
 
 module.exports = router
