@@ -5,6 +5,9 @@ const AWSController = require('../Estruturado/Controller/AWSController')
 const ImageControllerNova = require('../Estruturado/Controller/ImageController')
 const UserControllerNova = require('../Estruturado/Controller/UsuarioController')
 
+const multer = require('multer');
+const upload = multer();
+
 router.post('/estruturado/novaImagem', ImageControllerNova.novaImagem)
 router.get('/estruturado/imagens', ImageControllerNova.listarImagem)
 router.get('/estruturado/imagem/:id', ImageControllerNova.buscarImagem)
@@ -18,5 +21,7 @@ router.put('/estruturado/editarUsuario/:id', UserControllerNova.atualizarUsuario
 router.delete('/estruturado/apagarUsuario/:id', UserControllerNova.removerUsuario);
 
 router.get('/aws', AWSController.buscarImagem)
+router.post('/upload', upload.single('file'), AWSController.uploadImagem);
+
 
 module.exports = router

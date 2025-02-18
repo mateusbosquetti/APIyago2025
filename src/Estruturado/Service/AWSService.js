@@ -1,9 +1,13 @@
 const AWSRepository = require('../Repository/AWSRepository');
 
-class ImagemService {
+class AWSService {
     async buscarImagem(referencia) {
         return await AWSRepository.buscarImagem(referencia);
     }
+
+    async uploadImagem(file) {
+        return await AWSRepository.uploadImagem(file);
+    }
 }
 
-module.exports = new ImagemService();
+module.exports = new AWSService();
