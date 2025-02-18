@@ -2,8 +2,8 @@ const AWS = require('aws-sdk');
 
 AWS.config.update({
     region: 'us-east-1',
-    accessKeyId: 'AKIA5RRHCKYZU46MAWLR',
-    secretAccessKey: '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'
+    accessKeyId: '',
+    secretAccessKey: ''
 });
 
 const s3 = new AWS.S3();
@@ -12,7 +12,6 @@ class AWSRepository {
     async buscarImagem(referencia) {
         try {
             const params = {
-                Bucket: 'bucketmi74',
                 Key: referencia
             };
 
@@ -23,5 +22,12 @@ class AWSRepository {
         }
     }
 }
+
+/*
+                Bucket: 'bucketmi74',
+
+accessKeyId: 'AKIA5RRHCKYZU46MAWLR',
+    secretAccessKey: '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'
+*/
 
 module.exports = new AWSRepository();
