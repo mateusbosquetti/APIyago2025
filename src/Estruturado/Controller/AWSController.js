@@ -2,7 +2,18 @@ const AWSService = require('../Service/AWSService');
 const path = require('path');
 const fs = require('fs');
 
+/**
+ * @author Mateus Henrique Bosquetti
+ * @version 1.0
+ * @since 18/02/2025
+ */
 class AWSController {
+
+    /**
+     * Método que busca imagem e retorna o seu URL
+     * @param { referencia } req 
+     * @returns URL da imagem da aws 
+     */
     async buscarImagem(req, res) {
         try {
             const { referencia } = req.body;
@@ -16,6 +27,11 @@ class AWSController {
         }
     }
 
+    /**
+     * Método que posta uma imagem na aws
+     * @param { file } req 
+     * @returns URL da imagem postada na aws
+     */
     async uploadImagem(req, res) {
         try {
             const { file } = req;
@@ -30,6 +46,11 @@ class AWSController {
         }
     }
 
+    /**
+     * Método que faz download de uma imagem da aws para a sua maquina (obs: pasta downloads)
+     * @param { referencia } req
+     * @returns Imagem baixada
+     */
     async downloadImagem(req, res) {
         try {
             const { referencia } = req.body;
