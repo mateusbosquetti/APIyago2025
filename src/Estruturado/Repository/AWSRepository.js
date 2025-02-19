@@ -47,7 +47,7 @@ class AWSRepository {
             };
 
             const data = await s3.getObject(params).promise();
-            return data.Body; // Retorna o buffer do arquivo
+            return data.Body;
         } catch (error) {
             throw new Error("Erro ao baixar imagem do S3: " + error.message);
         }
