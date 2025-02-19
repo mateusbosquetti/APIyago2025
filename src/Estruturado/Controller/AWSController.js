@@ -1,4 +1,6 @@
 const AWSService = require('../Service/AWSService');
+const path = require('path');
+const fs = require('fs');
 
 class AWSController {
     async buscarImagem(req, res) {
@@ -16,13 +18,38 @@ class AWSController {
 
     async uploadImagem(req, res) {
         try {
-            const { file } = req; // Supondo que o arquivo seja enviado como multipart/form-data
+            const { file } = req;
             if (!file) {
                 return res.status(400).json({ error: "Nenhum arquivo enviado." });
             }
 
             const resultado = await AWSService.uploadImagem(file);
             res.json(resultado);
+        } catch (error) {
+            res.status(400).json({ error: error.message });
+        }
+    }
+
+    async downloadImagem(req, res) {
+        try {
+            const { referencia } = req.body;
+            if (!referencia) {
+                return res.status(400).json({ error: "A referência da imagem é obrigatória." });
+            }
+
+            // Baixa a imagem e salva na pasta Downloads
+            const filePath = await AWSService.downloadImagem(referencia);
+
+            // Envia o arquivo como resposta
+            res.download(filePath, (err) => {
+                if (err) {
+                    console.error("Erro ao enviar o arquivo:", err);
+                    res.status(500).json({ error: "Erro ao enviar o arquivo." });
+                }
+
+                // O arquivo NÃO será excluído após o envio
+                console.log(`Arquivo salvo em: ${filePath}`);
+            });
         } catch (error) {
             res.status(400).json({ error: error.message });
         }

@@ -22,6 +22,7 @@ router.delete('/estruturado/apagarUsuario/:id', UserControllerNova.removerUsuari
 
 router.get('/aws', AWSController.buscarImagem)
 router.post('/upload', upload.single('file'), AWSController.uploadImagem);
+router.get('/download', AWSController.downloadImagem);
 
 
 module.exports = router
