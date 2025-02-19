@@ -8,7 +8,18 @@ AWS.config.update({
 
 const s3 = new AWS.S3();
 
+/**
+ * @author Mateus Henrique Bosquetti
+ * @version 1.0
+ * @since 18/02/2025
+ */
 class AWSRepository {
+
+    /**
+     * Método que busca uma imagem na AWS, primeiro os parametros sao definidos, depois é feito uma requisicao para a AWS
+     * @param { referencia } referencia 
+     * @returns a URL retornada pela requisicao feita a AWS
+     */
     async buscarImagem(referencia) {
         try {
             const params = {
@@ -23,6 +34,11 @@ class AWSRepository {
         }
     }
 
+    /**
+    * Método que posta uma imagem na AWS, primeiro os parametros sao definidos, depois é feito uma requisicao para a AWS com eles
+     * @param { file } file 
+     * @returns O retorno é a URL que o método buscarImagem retorna apos receber como atributo a imagem postada
+     */
     async uploadImagem(file) {
         try {
             const params = {
@@ -33,12 +49,18 @@ class AWSRepository {
             };
 
             const resultado = await s3.upload(params).promise();
-            return { url: resultado.Location };
+            const response = await this.buscarImagem(file.originalname);
+            return { url: response };
         } catch (error) {
             throw new Error("Erro ao fazer upload da imagem no S3: " + error.message);
         }
     }
 
+    /**
+    * Método que busca uma imagem na AWS, e baixa ela na sua pasta Donwloads
+     * @param { referencia } referencia 
+     * @returns O retorno é o arquivo
+     */
     async downloadImagem(referencia) {
         try {
             const params = {
