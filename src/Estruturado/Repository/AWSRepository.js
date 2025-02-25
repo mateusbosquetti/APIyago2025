@@ -52,14 +52,17 @@ class AWSRepository {
      */
     async uploadImagem(file, id) {
         try {
+
+            const referencia = crypto.randomUUID()
+
             const params = {
                 Bucket: 'bucketmi74',
-                Key: file.originalname,
+                Key: referencia,
                 Body: file.buffer,
                 ContentType: file.mimetype
             };
 
-            const userTest = await usuarioRepository.buscarUsuario(id.id)
+            const userTest = await usuarioRepository.buscarUsuario(id)
 
             const resultado = await s3.upload(params).promise();
 
@@ -68,12 +71,12 @@ class AWSRepository {
             console.log(imagem)
 
             await database('imagem').insert({
-                referencia: imagem.referencia,
+                referencia: referencia,
                 usuario_id: imagem.usuario_id,
                 data_criacao: imagem.data_criacao
             });
 
-            const response = await this.buscarImagem(file.originalname);
+            const response = await this.buscarImagem(referencia);
             return { url: response };
         } catch (error) {
             throw new Error("Erro ao fazer upload da imagem no S3: " + error.message);
