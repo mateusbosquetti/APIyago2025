@@ -49,7 +49,7 @@ class AWSRepository {
      * @param { file } file 
      * @returns O retorno é a URL que o método buscarImagem retorna apos receber como atributo a imagem postada
      */
-    async uploadImagem(file) {
+    async uploadImagem(file, id) {
         try {
             const params = {
                 Bucket: 'bucketmi74',
@@ -60,10 +60,13 @@ class AWSRepository {
 
             const resultado = await s3.upload(params).promise();
 
-            const imagem = new Imagem(file.originalname);
+            const imagem = new Imagem(file.originalname, id.id);
+
+            console.log(imagem)
 
             await database('imagem').insert({
                 referencia: imagem.referencia,
+                usuario_id: imagem.usuario_id,
                 data_criacao: imagem.data_criacao
             });
 

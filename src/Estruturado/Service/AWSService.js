@@ -23,8 +23,8 @@ class AWSService {
      * @param { file } file 
      * @returns resposta do método uploadImagem da AWSRepository
      */
-    async uploadImagem(file) {
-        return await AWSRepository.uploadImagem(file);
+    async uploadImagem(file, id) {
+        return await AWSRepository.uploadImagem(file, id);
     }
 
     /**
