@@ -1,6 +1,7 @@
 const AWSRepository = require('../Repository/AWSRepository');
 const path = require('path');
 const fs = require('fs');
+const crypto = require('crypto');
 
 /**
  * @author Mateus Henrique Bosquetti
@@ -10,27 +11,30 @@ const fs = require('fs');
 class AWSService {
 
     /**
-     * Esse método chama o método da AWSRepository de buscarImagem
+     * Método que busca uma imagem na AWS e retorna a URL assinada.
      * @param { referencia } referencia 
-     * @returns resposta do método buscarImagem da AWSRepository
+     * @returns A URL da imagem.
      */
     async buscarImagem(referencia) {
         return await AWSRepository.buscarImagem(referencia);
     }
 
     /**
-     * Esse método chama o método da AWSRepository de uploadImagem
+     * Método que faz o upload de uma imagem para a AWS e salva os dados no banco de dados.
      * @param { file } file 
-     * @returns resposta do método uploadImagem da AWSRepository
+     * @param { id } id 
+     * @returns A URL da imagem após o upload.
      */
     async uploadImagem(file, id) {
-        return await AWSRepository.uploadImagem(file, id);
+        const referencia = crypto.randomUUID();
+        const url = await AWSRepository.uploadImagem(file, id, referencia);
+        return url;
     }
 
     /**
-     * Esse método pega o arquivo e o caminho do arquivo ("/Downloads") e baixa a imagem la
+     * Método que faz o download de uma imagem da AWS e salva na pasta Downloads.
      * @param { referencia } referencia 
-     * @returns O caminho da imagem que foi baixada
+     * @returns O caminho onde a imagem foi salva.
      */
     async downloadImagem(referencia) {
         const fileData = await AWSRepository.downloadImagem(referencia);

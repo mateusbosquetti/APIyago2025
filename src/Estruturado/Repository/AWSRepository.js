@@ -1,15 +1,7 @@
 const AWS = require('aws-sdk');
-const database = require('../database/connection')
+const database = require('../database/connection');
 const Imagem = require('../Entity/Imagem');
-const usuarioRepository = require('../Repository/UsuarioRepository')
-
-
-/*
-https://931016103475.signin.aws.amazon.com/console
-usermi74
-Senha@mi74
-*/
-
+const usuarioRepository = require('../Repository/UsuarioRepository');
 
 AWS.config.update({
     region: 'us-east-1',
@@ -27,9 +19,9 @@ const s3 = new AWS.S3();
 class AWSRepository {
 
     /**
-     * Método que busca uma imagem na AWS, primeiro os parametros sao definidos, depois é feito uma requisicao para a AWS
+     * Método que busca uma imagem na AWS e retorna a URL assinada.
      * @param { referencia } referencia 
-     * @returns a URL retornada pela requisicao feita a AWS
+     * @returns A URL da imagem.
      */
     async buscarImagem(referencia) {
         try {
@@ -46,15 +38,14 @@ class AWSRepository {
     }
 
     /**
-    * Método que posta uma imagem na AWS, primeiro os parametros sao definidos, depois é feito uma requisicao para a AWS com eles
+     * Método que faz o upload de uma imagem para a AWS e salva os dados no banco de dados.
      * @param { file } file 
-     * @returns O retorno é a URL que o método buscarImagem retorna apos receber como atributo a imagem postada
+     * @param { id } id 
+     * @param { referencia } referencia 
+     * @returns A URL da imagem após o upload.
      */
-    async uploadImagem(file, id) {
+    async uploadImagem(file, id, referencia) {
         try {
-
-            const referencia = crypto.randomUUID()
-
             const params = {
                 Bucket: 'bucketmi74',
                 Key: referencia,
@@ -62,13 +53,13 @@ class AWSRepository {
                 ContentType: file.mimetype
             };
 
-            const userTest = await usuarioRepository.buscarUsuario(id)
+            console.log(id)
+
+            const userTest = await usuarioRepository.buscarUsuario({id});
 
             const resultado = await s3.upload(params).promise();
 
-            const imagem = new Imagem(file.originalname, id.id);
-
-            console.log(imagem)
+            const imagem = new Imagem(file.originalname, id);
 
             await database('imagem').insert({
                 referencia: referencia,
@@ -84,9 +75,9 @@ class AWSRepository {
     }
 
     /**
-    * Método que busca uma imagem na AWS, e baixa ela na sua pasta Donwloads
+     * Método que faz o download de uma imagem da AWS.
      * @param { referencia } referencia 
-     * @returns O retorno é o arquivo
+     * @returns O conteúdo da imagem.
      */
     async downloadImagem(referencia) {
         try {
