@@ -3,8 +3,8 @@ const ImagemService = require('../Service/ImagemService');
 class ImagemController {
     async novaImagem(req, res) {
         try {
-            const { referencia, titulo } = req.body;
-            const resultado = await ImagemService.criarNovaImagem(referencia, titulo);
+            const { referencia } = req.body;
+            const resultado = await ImagemService.criarNovaImagem(referencia);
             res.json(resultado);
         } catch (error) {
             res.status(400).json({ error: error.message });
@@ -33,9 +33,9 @@ class ImagemController {
     async atualizarImagem(req, res) {
         try {
             const { id } = req.params;
-            const { referencia, titulo } = req.body;
+            const { referencia } = req.body;
 
-            const resultado = await ImagemService.atualizarImagem(id, referencia, titulo);
+            const resultado = await ImagemService.atualizarImagem(id, referencia);
             res.json(resultado);
         } catch (error) {
             res.status(400).json({ error: error.message });

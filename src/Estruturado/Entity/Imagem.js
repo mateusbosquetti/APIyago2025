@@ -1,7 +1,6 @@
 class Imagem {
-    constructor(referencia, titulo) {
+    constructor(referencia) {
         this.referencia = referencia;
-        this.titulo = titulo;
         
         const date = new Date();
         this.data_criacao = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;;

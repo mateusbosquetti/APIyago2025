@@ -29,7 +29,7 @@ class AWSService {
 
     /**
      * Esse método pega o arquivo e o caminho do arquivo ("/Downloads") e baixa a imagem la
-     * @param { refencia } referencia 
+     * @param { referencia } referencia 
      * @returns O caminho da imagem que foi baixada
      */
     async downloadImagem(referencia) {

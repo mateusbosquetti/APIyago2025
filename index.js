@@ -19,7 +19,7 @@ app.use(express.json());
 app.use(router);
 
 app.listen(3001,() => {
-    console.log("API Rodando");
+    console.log("API Rodando na porta 3001");
 })
 
 /*

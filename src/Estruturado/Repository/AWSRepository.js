@@ -1,9 +1,19 @@
 const AWS = require('aws-sdk');
+const database = require('../database/connection')
+const Imagem = require('../Entity/Imagem');
+
+
+/*
+https://931016103475.signin.aws.amazon.com/console
+usermi74
+Senha@mi74
+*/
+
 
 AWS.config.update({
-    region: '',
-    accessKeyId: '',
-    secretAccessKey: ''
+    region: 'us-east-1',
+    accessKeyId: 'AKIA5RRHCKYZ6W4OB6NB',
+    secretAccessKey: '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'
 });
 
 const s3 = new AWS.S3();
@@ -49,9 +59,18 @@ class AWSRepository {
             };
 
             const resultado = await s3.upload(params).promise();
+
+            const imagem = new Imagem(file.originalname);
+
+            await database('imagem').insert({
+                referencia: imagem.referencia,
+                data_criacao: imagem.data_criacao
+            });
+
             const response = await this.buscarImagem(file.originalname);
             return { url: response };
         } catch (error) {
+            console.error("Erro ao fazer upload da imagem:", error);
             throw new Error("Erro ao fazer upload da imagem no S3: " + error.message);
         }
     }
