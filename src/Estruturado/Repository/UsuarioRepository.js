@@ -25,7 +25,7 @@ class UsuarioRepository {
             const usuario = await database('usuario').select("*").where({id:id.id});
             return { usuario }
         } catch (error) {
-            throw new Error("Erro ao buscar a imagens");
+            throw new Error("Usuário inexistente");
         }
     }
     

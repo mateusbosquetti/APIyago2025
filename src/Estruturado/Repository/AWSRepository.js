@@ -1,6 +1,7 @@
 const AWS = require('aws-sdk');
 const database = require('../database/connection')
 const Imagem = require('../Entity/Imagem');
+const usuarioRepository = require('../Repository/UsuarioRepository')
 
 
 /*
@@ -58,6 +59,8 @@ class AWSRepository {
                 ContentType: file.mimetype
             };
 
+            const userTest = await usuarioRepository.buscarUsuario(id.id)
+
             const resultado = await s3.upload(params).promise();
 
             const imagem = new Imagem(file.originalname, id.id);
@@ -73,7 +76,6 @@ class AWSRepository {
             const response = await this.buscarImagem(file.originalname);
             return { url: response };
         } catch (error) {
-            console.error("Erro ao fazer upload da imagem:", error);
             throw new Error("Erro ao fazer upload da imagem no S3: " + error.message);
         }
     }
