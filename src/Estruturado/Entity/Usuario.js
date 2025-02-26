@@ -3,7 +3,7 @@ class Usuario {
         this.nome = nome;
         
         const date = new Date();
-        this.data_criacao = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;;
+        this.data_criacao = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
     }
 }
 
