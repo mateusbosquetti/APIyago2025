@@ -5,13 +5,13 @@ const crypto = require('crypto');
 
 /**
  * @author Mateus Henrique Bosquetti
- * @version 1.0
+ * @version 2.5
  * @since 18/02/2025
  */
 class AWSService {
 
     /**
-     * Método que busca uma imagem na AWS e retorna a URL assinada.
+     * Método que busca uma imagem na AWS e retorna a URL dela.
      * @param { referencia } referencia 
      * @returns A URL da imagem.
      */
@@ -20,10 +20,10 @@ class AWSService {
     }
 
     /**
-     * Método que faz o upload de uma imagem para a AWS e salva os dados no banco de dados.
+     * Método que faz o upload de uma imagem para a AWS e salva as informações dela no banco de dados.
      * @param { file } file 
      * @param { id } id 
-     * @returns A URL da imagem após o upload.
+     * @returns A URL da imagem.
      */
     async uploadImagem(file, id) {
         const referencia = crypto.randomUUID();
@@ -32,7 +32,7 @@ class AWSService {
     }
 
     /**
-     * Método que faz o download de uma imagem da AWS e salva na pasta Downloads.
+     * Método que faz o download de uma imagem da AWS e salva na pasta downloads do pc.
      * @param { referencia } referencia 
      * @returns O caminho onde a imagem foi salva.
      */

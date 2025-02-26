@@ -13,13 +13,13 @@ const s3 = new AWS.S3();
 
 /**
  * @author Mateus Henrique Bosquetti
- * @version 1.0
+ * @version 3.0
  * @since 18/02/2025
  */
 class AWSRepository {
 
     /**
-     * Método que busca uma imagem na AWS e retorna a URL assinada.
+     * Método define os parametros e faz a requisicao para a aws em busca da imagem
      * @param { referencia } referencia 
      * @returns A URL da imagem.
      */
@@ -38,11 +38,11 @@ class AWSRepository {
     }
 
     /**
-     * Método que faz o upload de uma imagem para a AWS e salva os dados no banco de dados.
+     * Método define os parametros e faz a requisicao para a aws fazer upload da imagem, eu fiz para testar se existe o usuario informado 
      * @param { file } file 
      * @param { id } id 
      * @param { referencia } referencia 
-     * @returns A URL da imagem após o upload.
+     * @returns A URL da imagem.
      */
     async uploadImagem(file, id, referencia) {
         try {
@@ -75,7 +75,7 @@ class AWSRepository {
     }
 
     /**
-     * Método que faz o download de uma imagem da AWS.
+     * Método define os parametros e faz a requisicao para a aws para fazer o download dela
      * @param { referencia } referencia 
      * @returns O conteúdo da imagem.
      */
