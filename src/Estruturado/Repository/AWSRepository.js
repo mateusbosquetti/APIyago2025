@@ -5,8 +5,8 @@ const usuarioRepository = require('../Repository/UsuarioRepository');
 
 AWS.config.update({
     region: 'us-east-1',
-    accessKeyId: 'AKIA5RRHCKYZ6W4OB6NB',
-    secretAccessKey: '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'
+    accessKeyId: 'ACCESSKEYID',
+    secretAccessKey: 'SECRETACCESSKEY'
 });
 
 const s3 = new AWS.S3();
