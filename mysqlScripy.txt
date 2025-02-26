@@ -1,0 +1,18 @@
+create database iago_db;
+use iago_db;
+
+show tables;
+
+create table usuario (
+	id int primary key not null auto_increment,
+    nome varchar(100) not null,
+    data_criacao varchar(50) not null
+);
+
+create table imagem (
+	id int primary key not null auto_increment,
+    referencia varchar(100),
+    usuario_id int,
+    foreign key (usuario_id) references usuario(id),
+    data_criacao varchar(50)
+);
