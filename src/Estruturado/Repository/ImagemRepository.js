@@ -2,6 +2,7 @@ const { response } = require('express');
 const database = require('../database/connection')
 
 class ImagemRepository {
+    
     async criarImagem(imagem) {
         try {
             await database('imagem').insert(imagem);
