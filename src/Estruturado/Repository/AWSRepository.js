@@ -3,6 +3,7 @@ const database = require('../database/connection');
 const Imagem = require('../Entity/Imagem');
 const usuarioRepository = require('../Repository/UsuarioRepository');
 
+//Configuralção das chaves secretas
 AWS.config.update({
     region: 'us-east-1',
     accessKeyId: 'ACCESSKEYID',
