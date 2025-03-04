@@ -6,15 +6,16 @@ const usuarioRepository = require('../Repository/UsuarioRepository');
 //Configuralção das chaves secretas
 AWS.config.update({
     region: 'us-east-1',
-    accessKeyId: 'ACCESSKEYID',
-    secretAccessKey: 'SECRETACCESSKEY'
+    accessKeyId: 'ACCESSKEY',
+    secretAccessKey: 'SECRETKEY'
 });
+
 
 const s3 = new AWS.S3();
 
 /**
  * @author Mateus Henrique Bosquetti
- * @version 3.0
+ * @version 4.0
  * @since 18/02/2025
  */
 class AWSRepository {
@@ -47,9 +48,12 @@ class AWSRepository {
      */
     async uploadImagem(file, id, referencia) {
         try {
+
+            referencia = referencia + "." + file.originalname.split('.').pop();
+
             const params = {
                 Bucket: 'bucketmi74',
-                Key: referencia,
+                Key: referencia ,
                 Body: file.buffer,
                 ContentType: file.mimetype
             };

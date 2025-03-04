@@ -32,6 +32,7 @@ class AWSController {
         try {
             const { file } = req;
             const { id } = req.params;
+
             const response = await AWSService.uploadImagem(file, id);
             res.status(200).json(response);
         } catch (error) {
